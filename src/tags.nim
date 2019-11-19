@@ -1,4 +1,5 @@
 import utils
+import config
 import json
 import strformat
 import strutils
@@ -12,7 +13,9 @@ type Tag = object
 var tags: Table[string, Tag]
 
 proc get_tags*() =
-  let tags_json = parseJson(readFile("tags.json"))
+  let path = if conf.dev: "../tags.json"
+    else: "~/.config/tag/tags.json"
+  let tags_json = parseJson(readFile(path))
   tags = to(tags_json, Table[string, Tag])
 
 proc save_tags*() = 

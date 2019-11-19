@@ -39,6 +39,7 @@ proc check_args() =
   elif items.len == 0:
     if action == "list":
       list_tags()
+    else: list_tags()
 
 # Main
 when isMainModule:
