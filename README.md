@@ -20,4 +20,6 @@ Ids are incremental, each path gets one automatically.
 
 Removing a path doesn't decrease the id counter.
 
+Using 'clear' to remove all tags resets the id to 0.
+
 ![](http://i.imgur.com/h6F5ZVI.jpg)

@@ -1,25 +1,13 @@
 {
   "data": {
-    "id": 30
+    "id": 1
   },
   "tags": {
-    "config": {
+    "pok": {
       "paths": [
         {
-          "id": 30,
-          "path": "/home/yo/.config/"
-        }
-      ]
-    },
-    "books": {
-      "paths": [
-        {
-          "id": 28,
-          "path": "/home/yo/Documents/"
-        },
-        {
-          "id": 29,
-          "path": "/home/yo/bin/"
+          "id": 1,
+          "path": "/home/yo/code/gat/bin/pok"
         }
       ]
     }
