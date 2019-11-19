@@ -1,6 +1,6 @@
 #!/bin/bash
 # Source this file in .bashrc
-# The you can 'gato 22' etc
+# Then you can 'gato 22' etc
 
 function gato()
 {
