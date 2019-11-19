@@ -1,2 +1,2 @@
 cd bin
-nim c -o:tag-debug -r ../src/tag.nim --dev "${@:1}"
+nim c -o:gato-debug -r ../src/gato.nim --dev "${@:1}"
