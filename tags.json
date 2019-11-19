@@ -1,0 +1,19 @@
+{
+  "books": {
+    "paths": [
+      "/home/yo/books",
+      "/media/me/book.txt",
+      "/home/yo/code/tag/tags.json",
+      "/home/yo/Videos/"
+    ]
+  },
+  "movies": {
+    "paths": [
+      "/home/yo/movies",
+      "/media/me/movie.mp4"
+    ]
+  },
+  "potz": {
+    "paths": []
+  }
+}
