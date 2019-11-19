@@ -7,7 +7,7 @@ gat movies ~/movies
 gat movies ~/movies/trailers
 gat remove movies re:mov
 gat list books
-gat 22
+gat remove 13
 ```
 
 And with the provided shell script
