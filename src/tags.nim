@@ -1,35 +1,19 @@
+import dbase
 import utils
-import config
-import json
 import strformat
 import strutils
 import tables
 import nre
 import os
 
-type Tag = object
-  paths: seq[string]
-
-var tags: Table[string, Tag]
-
-proc get_tags*() =
-  let path = if conf.dev: "../tags.json"
-    else: "~/.config/tag/tags.json"
-  let tags_json = parseJson(readFile(path))
-  tags = to(tags_json, Table[string, Tag])
-
-proc save_tags*() = 
-  var tags_json = % tags
-  writeFile("tags.json", tags_json.pretty())
-
 proc check_tag*(name:string): bool =
-  if not tags.hasKey(name):
+  if not db.tags.hasKey(name):
     log &"Tag '{name}' doesn't exist."
     return true
   return false
 
 proc check_tag_2*(name:string): bool =
-  if tags.hasKey(name):
+  if db.tags.hasKey(name):
     log &"Tag '{name}' already exists."
     return true
   return false
@@ -37,55 +21,68 @@ proc check_tag_2*(name:string): bool =
 proc new_tag*(name:string, save:bool) =
   if check_tag_2(name):
     return
-  tags[name] = Tag()
-  if save: save_tags()
+  if not is_alpha(name):
+    log "Tag names must be alphanumeric."
+    return
+  if not is_alpha(name[0]):
+    log "Tag names must start with a letter."
+    return
+  db.tags[name] = Tag()
+  if save: save_db()
   log &"Tag '{name}' created."
 
-proc add_path*(name:string, path:string)=
-  if not tags.hasKey(name):
+proc get_path_index*(name:string, path:string): int =
+  for i, item in db.tags[name].paths:
+    if item.path == path:
+      return i
+  return -1
+
+proc add_path*(name:string, path:string) =
+  if not db.tags.hasKey(name):
     new_tag(name, false)
   var path = expandTilde(path)
   if not path.startsWith("/"):
     path = getCurrentDir().joinPath(path)
-  if tags[name].paths.contains(path):
+  if get_path_index(name, path) != -1:
     log &"Path already exists in '{name}'."
     return
-  tags[name].paths.add(path)
-  save_tags()
-  log &"{path} added to '{name}'."
+  inc(db.data.id)
+  let p = Path(id:db.data.id, path:path)
+  db.tags[name].paths.add(p)
+  save_db()
+  log(&"{path}: added to '{name}'.", "path")
 
 proc remove_path*(name:string, path:string)=
   if check_tag(name):
     return
 
-  var ix = newSeq[int]()
   var res: Regex
   var use_re = false
   var removed = false
 
   if path.startsWith("re:"):
-    res = re(path.replace(re"^re:", "").strip())
+    res = re(scape(path.replace(re"^re:", "").strip()))
     use_re = true
   
   var i = 0
 
-  for x in 0..(tags[name].paths.len - 1):
+  for x in 0..(db.tags[name].paths.len - 1):
     var del = false
-    let p = tags[name].paths[i]
+    let p = db.tags[name].paths[i]
     if use_re:
-      let matches = p.find(res)
+      let matches = p.path.find(res)
       if matches.isSome: del = true
     else:
-      if p == path: del = true
+      if p.path == path: del = true
     if del: 
-      log &"{p} removed from '{name}'"
-      tags[name].paths.delete(i)
+      log(&"{p.path}: removed from '{name}'.", "path")
+      db.tags[name].paths.delete(i)
       removed = true
     else: inc(i)
   
   if removed:
-    save_tags()
-  else: log "Nothing was deleted."
+    save_db()
+  else: log "Nothing was removed."
 
 proc rename_tag*(name:string, name2:string) =
   if check_tag(name):
@@ -93,23 +90,49 @@ proc rename_tag*(name:string, name2:string) =
   if check_tag_2(name2):
     return
   new_tag(name2, false)
-  tags[name2] = tags[name]
-  tags.del(name)
-  save_tags()
+  db.tags[name2] = db.tags[name]
+  db.tags.del(name)
+  save_db()
   log &"Tag '{name}' renamed to '{name2}'."
 
 proc remove_tag*(name:string) =
-  if check_tag(name):
-    return
-  tags.del(name)
-  save_tags()
-  log &"Tag '{name}' removed."
+  var res: Regex
+  var use_re = false
+  var removed = false
+
+  if name.startsWith("re:"):
+    res = re(scape(name.replace(re"^re:", "").strip()))
+    use_re = true
+  
+  var dels = newSeq[string]()
+
+  if use_re:
+    for key in db.tags.keys:
+      let match = key.find(res)
+      if match.isSome:
+        dels.add(key)
+  else:
+    if db.tags.hasKey(name):
+      dels.add(name)
+  
+  if dels.len > 0:
+    removed = true
+    for key in dels:
+      db.tags.del(key)
+      log &"Tag '{key}' removed."
+  
+  if removed:
+    save_db()
+  else:
+    log "Nothing was removed."
 
 proc list_tags*() =
   log ""
   log("Tags:", "cyan")
-  for key in tags.keys:
-    log &"{key} ({tags[key].paths.len})"
+  let cs = get_ansi("green")
+  let rs = get_ansi("reset")
+  for key in db.tags.keys:
+    log &"{key} ({cs}{db.tags[key].paths.len}{rs})"
   log ""
 
 proc list_paths*(name:string) =
@@ -118,6 +141,8 @@ proc list_paths*(name:string) =
 
   log ""
   log(&"{name}:", "cyan")
-  for path in tags[name].paths:
-    log path
+  let cs = get_ansi("blue")
+  let rs = get_ansi("reset")
+  for path in db.tags[name].paths:
+    log &"{path.path} (id:{cs}{path.id}{rs})"
   log ""

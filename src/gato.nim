@@ -1,3 +1,4 @@
+import dbase
 import config
 import tags
 import strutils
@@ -44,5 +45,5 @@ proc check_args() =
 # Main
 when isMainModule:
   get_config()
-  get_tags()
+  get_db()
   check_args()

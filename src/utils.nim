@@ -1,3 +1,4 @@
+import nre
 import terminal
 import strformat
 import strutils
@@ -11,13 +12,24 @@ proc get_ansi*(color:string): string =
   of "reset": ansiResetCode
   else: ""
 
-proc log*(text:string, color="", colormode="all") =
-  let cs = get_ansi(color)
-  let cr = get_ansi("reset")
-  if colormode == "all":
-    echo &"{cs}{text}{cr}"
-  elif colormode == "start":
+proc log*(text:string, mode="normal") =
+  if mode == "normal":
+    echo text
+  elif mode == "path":
+    let cs = get_ansi("green")
+    let cs2 = get_ansi("blue")
+    let cr = get_ansi("reset")
     let split = text.split(": ")
-    let t1 = split[0].strip()
-    let t2 = split[1].strip()
-    echo &"{cs}{t1}:{cr} {t2}"
+    var t1 = split[0].strip()
+    var t2 = split[1].strip()
+      .replace(re"'(.*)'", &"{cs2}$1{cr}")
+    echo &"{cs}{t1}{cr} {t2}"
+
+proc is_alpha*(s:string): bool =
+  s.find(re"[^\w]+").isNone
+
+proc is_alpha*(c:char): bool =
+  return isAlphaAscii(c)
+
+proc scape*(s:string): string =
+  s.replace("\\", "\\\\")
