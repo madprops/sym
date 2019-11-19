@@ -1,3 +1,4 @@
+import utils
 import dbase
 import config
 import tags
@@ -7,7 +8,7 @@ proc check_args() =
   var action = ""
   var items: seq[string]
   let actions = ["remove", "rename",
-    "list", "new", "add"]
+    "list", "new", "add", "goto"]
   
   for part in conf.tail:
     if part == "": continue
@@ -20,25 +21,35 @@ proc check_args() =
   
   if items.len >= 2:
     let rest = items[1..^1].join(" ")
-  
-    if action == "add":
+    
+    case action:
+    of "add":
       add_path(items[0], rest)
-    elif action == "rename":
+    of "rename":
       rename_tag(items[0], rest)
-    elif action == "remove":
+    of "remove":
       remove_path(items[0], rest)
     
   elif items.len == 1:
-    if action == "new":
+    case action
+    of "new":
       new_tag(items[0], true)
-    elif action == "remove":
-      remove_tag(items[0])
-    elif action == "list":
+    of "remove":
+      if is_numeric(items[0]):
+        remove_path_by_id(items[0])
+      else:
+        remove_tag(items[0])
+    of "list":
       list_paths(items[0])
-    else: list_paths(items[0])
+    else:
+      if is_numeric(items[0]):
+        print_path(items[0])
+      else:
+        list_paths(items[0])
     
   elif items.len == 0:
-    if action == "list":
+    case action:
+    of "list":
       list_tags()
     else: list_tags()
 

@@ -1,3 +1,4 @@
+import os
 import config
 import json
 import tables
@@ -20,13 +21,13 @@ var db*: DB
 
 proc get_db*() =
   let path = if conf.dev: "../db.json"
-    else: "~/.config/tag/db.json"
-  let tags_json = parseJson(readFile(path))
+    else: "~/.config/gat/db.json"
+  let tags_json = parseJson(readFile(expandTilde(path)))
   db = DB(data:to(tags_json["data"], Data), 
     tags:to(tags_json["tags"], Table[string, Tag]))
 
 proc save_db*() = 
   var db_json = % db
   let path = if conf.dev: "../db.json"
-    else: "~/.config/tag/db.json"
-  writeFile(path, db_json.pretty())
+    else: "~/.config/gat/db.json"
+  writeFile(expandTilde(path), db_json.pretty())

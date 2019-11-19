@@ -5,6 +5,8 @@ import strutils
 import tables
 import nre
 import os
+import osproc
+import rdstdin
 
 proc check_tag*(name:string): bool =
   if not db.tags.hasKey(name):
@@ -18,13 +20,34 @@ proc check_tag_2*(name:string): bool =
     return true
   return false
 
+proc get_path_by_id(id:int): Path =
+  for key in db.tags.keys:
+    for path in db.tags[key].paths:
+      if path.id == id:
+        return path
+  return Path()
+
+proc get_path_index_by_id(id:int): int =
+  for key in db.tags.keys:
+    for i, path in db.tags[key].paths:
+      if path.id == id:
+        return i
+  return -1
+
+proc get_path_tag_by_id(id:int): string =
+  for key in db.tags.keys:
+    for path in db.tags[key].paths:
+      if path.id == id:
+        return key
+  return ""
+
 proc new_tag*(name:string, save:bool) =
   if check_tag_2(name):
     return
   if not is_alpha(name):
     log "Tag names must be alphanumeric."
     return
-  if not is_alpha(name[0]):
+  if is_numeric(name[0]):
     log "Tag names must start with a letter."
     return
   db.tags[name] = Tag()
@@ -52,8 +75,33 @@ proc add_path*(name:string, path:string) =
   save_db()
   log(&"{path}: added to '{name}'.", "path")
 
-proc remove_path*(name:string, path:string)=
+proc remove_path_by_id*(sid:string) =
+  var id = 0
+  try:
+    id = parseInt(sid)
+  except:
+    log "Invalid id."
+    return
+  let name = get_path_tag_by_id(id)
+  if name == "":
+    log "Can't find parent tag."
+    return
+  let i = get_path_index_by_id(id)
+  if i != -1:
+    let p = db.tags[name].paths[i]
+    log(&"{p.path}: removed from '{name}'.", "path")
+    db.tags[name].paths.delete(i)
+    save_db()
+  else:
+    log "No id matched."
+  return
+
+proc remove_path*(name:string, path:string) =
   if check_tag(name):
+    return
+  
+  if is_numeric(path):
+    remove_path_by_id(path)
     return
 
   var res: Regex
@@ -118,8 +166,10 @@ proc remove_tag*(name:string) =
   if dels.len > 0:
     removed = true
     for key in dels:
-      db.tags.del(key)
-      log &"Tag '{key}' removed."
+      let ans = readLineFromStdin(&"Remove '{key}' (y/n): ").strip()
+      if ans == "y":
+        db.tags.del(key)
+        log &"Tag '{key}' removed."
   
   if removed:
     save_db()
@@ -140,9 +190,25 @@ proc list_paths*(name:string) =
     return
 
   log ""
-  log(&"{name}:", "cyan")
+  log(&"{name}:", "title")
   let cs = get_ansi("blue")
   let rs = get_ansi("reset")
   for path in db.tags[name].paths:
     log &"{path.path} (id:{cs}{path.id}{rs})"
   log ""
+
+proc print_path*(sid:string) =
+  var id = 0
+
+  try:
+     id = parseInt(sid)
+  except:
+    log "Invalid id."
+    return
+  
+  let p = get_path_by_id(id)
+  
+  if p.path != "":
+    echo p.path
+  else:
+    log "No id matched."

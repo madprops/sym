@@ -1,2 +1,2 @@
 cd bin
-nim c -o:gato-debug -r ../src/gato.nim --dev "${@:1}"
+nim c -o:gat-debug -r ../src/gat.nim --dev "${@:1}"
