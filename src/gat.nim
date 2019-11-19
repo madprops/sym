@@ -8,7 +8,7 @@ proc check_args() =
   var action = ""
   var items: seq[string]
   let actions = ["remove", "rename",
-    "list", "new", "add", "goto"]
+    "list", "new", "add", "clear"]
   
   for part in conf.tail:
     if part == "": continue
@@ -51,6 +51,8 @@ proc check_args() =
     case action:
     of "list":
       list_tags()
+    of "clear":
+      clear_tags()
     else: list_tags()
 
 # Main

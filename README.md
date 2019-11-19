@@ -19,3 +19,5 @@ This will cd to whatever path is id:22
 Ids are incremental, each path gets one automatically.
 
 Removing a path doesn't decrease the id counter.
+
+![](http://i.imgur.com/h6F5ZVI.jpg)

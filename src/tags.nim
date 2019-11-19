@@ -212,3 +212,10 @@ proc print_path*(sid:string) =
     echo p.path
   else:
     log "No id matched."
+
+proc clear_tags*() =
+  let ans = readLineFromStdin("Remove ALL tags (yes, no): ").strip()
+  if ans == "yes":
+    db.tags = initTable[string, Tag]()
+    save_db()
+    log "All tags were removed."

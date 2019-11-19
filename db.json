@@ -1,10 +1,27 @@
 {
   "data": {
-    "id": 27
+    "id": 30
   },
   "tags": {
+    "config": {
+      "paths": [
+        {
+          "id": 30,
+          "path": "/home/yo/.config/"
+        }
+      ]
+    },
     "books": {
-      "paths": []
+      "paths": [
+        {
+          "id": 28,
+          "path": "/home/yo/Documents/"
+        },
+        {
+          "id": 29,
+          "path": "/home/yo/bin/"
+        }
+      ]
     }
   }
 }
