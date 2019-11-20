@@ -4,27 +4,24 @@ import json
 import tables
 
 type Data* = object
-  id*: int
+  version*: int
 
-type Path* = object
-  id*: int
+type Item* = ref object
   path*: string
-
-type Tag* = object
-  paths*: seq[Path]
+  tags*: seq[string]
 
 type DB* = object
   data*: Data
-  tags*: Table[string, Tag]
+  items*: Table[string, Item]
 
 var db*: DB
 
 proc get_db*() =
   let path = if conf.dev: "../db.json"
     else: "~/.config/gat/db.json"
-  let tags_json = parseJson(readFile(expandTilde(path)))
-  db = DB(data:to(tags_json["data"], Data), 
-    tags:to(tags_json["tags"], Table[string, Tag]))
+  let db_json = parseJson(readFile(expandTilde(path)))
+  db = DB(data:to(db_json["data"], Data), 
+    items:to(db_json["items"], Table[string, Item]))
 
 proc save_db*() = 
   var db_json = % db

@@ -1,14 +1,12 @@
 {
   "data": {
-    "id": 1
+    "version": 1
   },
-  "tags": {
-    "pok": {
-      "paths": [
-        {
-          "id": 1,
-          "path": "/home/yo/code/gat/bin/pok"
-        }
+  "items": {
+    "strong": {
+      "path": "/home/yo/code/gat/bin/sooo",
+      "tags": [
+        "partyaaa"
       ]
     }
   }

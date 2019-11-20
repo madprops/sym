@@ -1,14 +1,14 @@
-import utils
 import dbase
 import config
-import tags
+import itemprocs
 import strutils
 
 proc check_args() =
   var action = ""
   var items: seq[string]
   let actions = ["remove", "rename",
-    "list", "new", "add", "clear"]
+    "list", "new", "add", "clear", "tag",
+    "removepath", "removetag"]
   
   for part in conf.tail:
     if part == "": continue
@@ -21,39 +21,34 @@ proc check_args() =
   
   if items.len >= 2:
     let rest = items[1..^1].join(" ")
+    let rest2 = items[2..^1].join(" ")
     
     case action:
     of "add":
-      add_path(items[0], rest)
+      add_item(items[0], items[1])
     of "rename":
-      rename_tag(items[0], rest)
-    of "remove":
-      remove_path(items[0], rest)
+      rename_item(items[0], rest)
+    of "tag":
+      add_tag(items[0], rest)
+    of "removetag":
+      remove_tag(items[0], rest)
     
   elif items.len == 1:
     case action
-    of "new":
-      new_tag(items[0], true)
     of "remove":
-      if is_numeric(items[0]):
-        remove_path_by_id(items[0])
-      else:
-        remove_tag(items[0])
-    of "list":
-      list_paths(items[0])
+      remove_item(items[0])
+    of "removepath":
+      remove_path(items[0])
     else:
-      if is_numeric(items[0]):
-        print_path(items[0])
-      else:
-        list_paths(items[0])
+      print_item(items[0])
     
   elif items.len == 0:
     case action:
     of "list":
-      list_tags()
+      list_items()
     of "clear":
-      clear_tags()
-    else: list_tags()
+      clear_items()
+    else: list_items()
 
 # Main
 when isMainModule:
