@@ -68,7 +68,7 @@ Scripts are 1 command per line.
 
 For example:
 ```
-  movies ~/media/movies plot
-  tag movies woomy
-  backup
+movies ~/media/movies plot
+tag movies woomy
+backup
 ```
