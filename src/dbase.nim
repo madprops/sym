@@ -25,13 +25,13 @@ proc get_db_path(): string =
   if conf.dev:
     getCurrentDir().parentDir().joinPath("db.json")
   else:
-    getHomeDir().join(".config/sym/db.json")
+    getHomeDir().joinPath(".config/sym/db.json")
 
 proc get_db_backup_path(): string =
   if conf.dev:
     getCurrentDir().parentDir().joinPath("db_backup.json")
   else:
-    getHomeDir().join(".config/sym/db_backup.json")
+    getHomeDir().joinPath(".config/sym/db_backup.json")
 
 proc read_db_file(): string =
   try:
