@@ -50,15 +50,7 @@ proc remove_sym*(name:string) =
 
   for tag in db.items[name].tags:
     remove_tag_sym(name, tag)
-
-proc remake_syms*() =
-  for name in db.items.keys:
-    let it = db.items[name]
-    make_sym(name, it.path)
-    for tag in it.tags:
-      make_tag_sym(tag, name, it.path)
-  log "Symlinks remade."
-
+  
 proc make_symdir*() =
   if not dirExists(symdir()):
     createDir(symdir())
@@ -67,6 +59,18 @@ proc make_symdir*() =
 proc remove_symdir*() =
   if dirExists(symdir()):
     removeDir(symdir())
+
+proc remake_syms*() =
+  remove_symdir()
+  make_symdir()
+
+  for name in db.items.keys:
+    let it = db.items[name]
+    make_sym(name, it.path)
+    for tag in it.tags:
+      make_tag_sym(tag, name, it.path)
+
+  log "Symlinks remade."
 
 proc check_symdir*() =
   if not existsDir(symdir()):
