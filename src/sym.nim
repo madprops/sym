@@ -12,7 +12,7 @@ proc do_action(tail:seq[string]) =
   let actions = ["remove", "rename",
     "list", "add", "removeall", "tag", "removepath", 
     "removetag", "tags", "changepath", "open",
-    "backup", "restore", "remake"]
+    "backup", "restore", "remake", "makescript"]
     
   for part in tail:
     if part == "": continue
@@ -49,6 +49,8 @@ proc do_action(tail:seq[string]) =
       list_tag(items[0])
     of "open":
       open_item(items[0])
+    of "makescript":
+      make_script(items[0])
     else:
       print_item(items[0])
       
@@ -69,23 +71,24 @@ proc do_action(tail:seq[string]) =
       remake_syms()
     else: show_info()
 
+proc run_script(path:string) =
+  var text = ""
+  var path = fix_path_2(path)
+  try:
+    text = readFile(path)
+  except:
+    log "Can't read script file."
+    return
+  for line in text.splitLines:
+    if line.strip() == "": continue
+    do_action(line.split(" "))
+
 proc check_args() =
-  if conf.script != "":
-    var text = ""
-    var path = expandTilde(conf.script)
-    if not path.startsWith("/"):
-      path = if conf.dev:
-        getCurrentDir().parentDir().joinPath(conf.script)
-      else: getCurrentDir().joinPath(conf.script)
-    try:
-      text = readFile(path)
-    except:
-      log "Can't read script file."
-    for line in text.splitLines:
-      if line.strip() == "": continue
-      do_action(line.split(" "))
-  else:
-    do_action(conf.tail)
+  if conf.tail.len > 0:
+    if conf.tail[0] == "runscript":
+      run_script(conf.tail[1..^1].join(" "))
+      return
+  do_action(conf.tail)
 
 # Main
 when isMainModule:

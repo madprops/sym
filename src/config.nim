@@ -2,7 +2,6 @@ import nap
 
 type Config* = object
   tail*: seq[string]
-  script*: string
   dev*: bool
   force*: bool
 
@@ -65,20 +64,26 @@ proc get_config*() =
     Remake symlinks based on the database:
       sym remake
     
-    A script can be used with --file
+    Scripts can be used for automation.
     Scripts are 1 command per line.
+
     For example:
       movies ~/media/movies plot
       tag movies woomy
       backup
+
+    Run a script:
+      sym runscript /path/to/script
+    
+    Make a script:
+      sym makescript /path/to/save
     """
   
   let dev = use_arg(name="dev", kind="flag", help="Used for development")
-  let script = use_arg(name="script", kind="value", help="Run a script with commands")
   let force = use_arg(name="force", kind="flag", help="Run commands without confirmation")
 
   parse_args(info)
-  conf = Config(tail:argtail(), dev:dev.used, script:script.val, force:force.used)
+  conf = Config(tail:argtail(), dev:dev.used, force:force.used)
 
 proc show_info*() =
   print_help()

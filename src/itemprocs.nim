@@ -71,15 +71,12 @@ proc check_dir_exists(path:string): bool =
     return true
   return false
 
-proc add_item*(name:string, opath:string, tags=newSeq[string]()) =
+proc add_item*(name:string, path:string, tags=newSeq[string]()) =
   if name.contains(" "):
     log "Item names can't have spaces."
     return
   
-  var path = opath
-  normalizePath(path)
-  if not path.startsWith("/"):
-    path = getCurrentDir().joinPath(path)
+  var path = fix_path(path)
   
   if check_dir_exists(path):
     return
@@ -268,3 +265,20 @@ proc open_item*(name:string) =
     return
   let it = db.items[name]
   discard execCmd(&"xdg-open {it.path}")
+
+proc make_script*(path:string) =
+  var path = fix_path_2(path)
+  var lines: seq[string]
+
+  for name in db.items.keys:
+    let it = db.items[name]
+    lines.add(&"{name} {it.path} {format_tags(it.tags)}")
+
+  let script = lines.join("\n")
+
+  try:
+    writeFile(path, script)
+  except: 
+    log "Failed to save script file."
+  
+  log(&"Script saved as {to_color(path, cyan)}")

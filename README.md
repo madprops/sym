@@ -64,15 +64,21 @@ Remake symlinks based on the database:
 sym remake
 ```
 
-A script can be used with --script
-
-i.e: sym --script=~/myscript.txt
-
+A script can be used for automation.
 Scripts are 1 command per line.
-
+    
 For example:
 ```
 movies ~/media/movies plot
 tag movies woomy
 backup
+```
+Run a script:
+```
+sym runscript /path/to/script
+```
+    
+Make a script:
+```
+sym makescript /path/to/save
 ```

@@ -1,3 +1,5 @@
+import config
+import os
 import nre
 import terminal
 import strformat
@@ -30,11 +32,12 @@ proc log*(text:string, mode="normal") =
       let bs = get_ansi("bright")
       echo &"{bs}{text}{cr}"
 
-proc format_tags*(tags:seq[string]): string =
+proc format_tags*(tags:seq[string], hash=true): string =
+  let hsh = if hash: "#" else: ""
   var ts = ""
   if tags.len > 0:
     for t in tags:
-      ts.add(&"#{t} ")
+      ts.add(&"{hsh}{t} ")
     ts = ts.strip()
   return ts
     
@@ -72,3 +75,19 @@ proc is_numeric*(c:char): bool =
 proc confirm*(q:string): bool =
   let ans = readLineFromStdin(&"{q} (yes/no): ").strip()
   return ans == "yes"
+
+proc fix_path*(path:string): string =
+  var path = expandTilde(path)
+  normalizePath(path)
+  if not path.startsWith("/"):
+    path = getCurrentDir().joinPath(path)
+  return path
+
+proc fix_path_2*(path:string): string =
+  var path = expandTilde(path)
+  normalizePath(path)
+  if not path.startsWith("/"):
+    path = if conf.dev:
+      getCurrentDir().parentDir().joinPath(path)
+      else: getCurrentDir().joinPath(path)
+  return path

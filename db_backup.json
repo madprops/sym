@@ -2,34 +2,5 @@
   "data": {
     "version": 1
   },
-  "items": {
-    "here": {
-      "path": "/etc",
-      "tags": [
-        "edit",
-        "corn"
-      ]
-    },
-    "movies": {
-      "path": "/usr/bin",
-      "tags": [
-        "future",
-        "rapid"
-      ]
-    },
-    "car": {
-      "path": "/var/www",
-      "tags": [
-        "web",
-        "trains"
-      ]
-    },
-    "bones": {
-      "path": "/bin",
-      "tags": [
-        "tree",
-        "fun"
-      ]
-    }
-  }
+  "items": {}
 }
