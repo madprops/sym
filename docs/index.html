@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- This file was created with the aha Ansi HTML Adapter. https://github.com/theZiz/aha -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xml+xhtml; charset=UTF-8" />
+<title>stdin</title>
+</head>
+<body>
+<pre>
+Script started on 2019-11-21 17:17:57-0600
+
+<span style="font-weight:bold;"></span><span style="color:green;font-weight:bold;">Symlink creator and manager</span>
+
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;">Examples:</span>
+
+  Create an item:
+   <span style="color:teal;">sym movies ~/media/movies entertainment videos.</span>
+   This creates an item called movies.
+   Associated with the provided path.
+   And 2 tags were added to it.
+   This will create a symlink: ~/sym/movies
+   It will also create tag symlinks:
+   ~/sym/tags/entertainment/movies
+   and ~/sym/tags/videos/movies
+   These 3 symlinks point to the same path.
+   You can do for instance 'ls ~/sym/movies'
+   And it will show the contents of
+   ~/media/movies
+
+  Remove an item:
+   <span style="color:teal;">sym remove movies</span>
+   or regex...
+   <span style="color:teal;">sym remove re:\\w+</span>
+
+  Remove an item by path:
+   <span style="color:teal;">sym removepath /media/movies</span>
+   or regex...
+   <span style="color:teal;">sym removepath re:\\w+</span>
+
+  Rename an item:
+   <span style="color:teal;">sym rename movies moviez</span>
+
+  Add a tag:
+   <span style="color:teal;">sym tag movies art</span>
+
+  Remove a tag:
+   <span style="color:teal;">sym removetag movies art</span>
+
+  List items:
+   <span style="color:teal;">sym list</span>
+
+  List tags:
+   <span style="color:teal;">sym tags</span>
+
+  List paths associated with a tag:
+   <span style="color:teal;">sym tag funny</span>
+
+  Change the path of an item:
+   <span style="color:teal;">sym changepath movies /media/movies</span>
+
+  Show the path of an item:
+   <span style="color:teal;">sym path movies</span>
+
+  Open a path in the file manager:
+   <span style="color:teal;">sym open movies</span>
+
+  Remake symlinks based on the database:
+   <span style="color:teal;">sym remake</span>
+
+  Make a backup:
+   <span style="color:teal;">sym backup</span>
+
+  Restore from backup:
+   <span style="color:teal;">sym restore</span>
+
+  Print a string of item names:
+   <span style="color:teal;">sym printnames</span>
+
+  Scripts:
+   Scripts can be used for automation.
+   Scripts are 1 command per line.
+   <span style="color:teal;"></span>
+   Example script:
+   <span style="color:teal;">movies ~/media/movies plot</span>
+   <span style="color:teal;">tag movies woomy</span>
+   <span style="color:teal;">backup</span>
+
+  Run a script:
+   <span style="color:teal;">sym runscript /path/to/script</span>
+
+  Make a script:
+   <span style="color:teal;">sym makescript /path/to/save</span>
+
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;">Flags:</span>
+
+  --dev
+  <span style="color:teal;">Used for development</span>
+
+  --force
+  <span style="color:teal;">Run commands without confirmation</span>
+
+
+Script done on 2019-11-21 17:17:57-0600
+</pre>
+</body>
+</html>
