@@ -12,28 +12,28 @@ proc get_config*() =
   add_example(title="Create an item", content=
 """
 sym movies ~/media/movies entertainment videos.
-This creates an item called movies.
-Associated with the provided path.
-And 2 tags were added to it.
-This will create a symlink: ~/sym/movies
-It will also create tag symlinks:
-~/sym/tags/entertainment/movies
-and ~/sym/tags/videos/movies
-These 3 symlinks point to the same path.
-You can do for instance 'ls ~/sym/movies'
-And it will show the contents of
-~/media/movies""")
+#This creates an item called movies.
+#Associated with the provided path.
+#And 2 tags were added to it.
+#This will create a symlink: ~/sym/movies
+#It will also create tag symlinks:
+#~/sym/tags/entertainment/movies
+#and ~/sym/tags/videos/movies
+#These 3 symlinks point to the same path.
+#You can do for instance 'ls ~/sym/movies'
+#And it will show the contents of
+#~/media/movies""")
     
   add_example(title="Remove an item", content=
 """
 sym remove movies
-or regex...
+#or regex...
 sym remove re:\\w+""")
     
   add_example(title="Remove an item by path", content=
 """
 sym removepath /media/movies
-or regex...
+#or regex...
 sym removepath re:\\w+""")
     
   add_example(title="Rename an item", content=
@@ -74,10 +74,10 @@ sym removepath re:\\w+""")
 
   add_example(title="Scripts", content=
 """
-Scripts can be used for automation.
-Scripts are 1 command per line.
+#Scripts can be used for automation.
+#Scripts are 1 command per line.
 
-Example script:
+#Example script:
   movies ~/media/movies plot
   tag movies woomy
   backup""")
