@@ -1,1 +1,1 @@
-nim compile -d:release -o=bin/gat src/gat.nim
+nim compile -d:release -o=bin/sym src/sym.nim

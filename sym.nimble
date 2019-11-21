@@ -2,14 +2,14 @@
 
 version       = "0.1.0"
 author        = "madprops"
-description   = "Tag directories and files"
+description   = "Symlink creator and manager"
 license       = "GPL-2.0"
 srcDir        = "src"
-bin           = @["gat"]
+bin           = @["sym"]
 
 
 
 # Dependencies
 
 requires "nim >= 1.0.0"
-requires "nap >= 0.7.1"
+requires "nap >= 0.8.0"

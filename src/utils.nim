@@ -3,6 +3,12 @@ import terminal
 import strformat
 import strutils
 
+type Color* = enum
+  blue
+  cyan
+  green
+  red
+
 proc get_ansi*(color:string): string =
   case color
   of "green": ansiForegroundColorCode(fgGreen)
@@ -18,7 +24,8 @@ proc log*(text:string, mode="normal") =
     echo text
   else:
     let cr = get_ansi("reset")
-    if mode == "title":
+    case mode
+    of "title":
       let bs = get_ansi("bright")
       echo &"{bs}{text}{cr}"
 
@@ -39,6 +46,15 @@ proc format_item*(name:string, path:string, tags=newSeq[string]()): string =
   let s3 = if ts != "":
     &" {cs3}{ts}{rs}" else: &"{rs}"
   return &"{cs}{name} {cs2}{path}{s3}"
+
+proc to_color*(s:string, color:Color): string =
+  var cs = case color:
+  of blue: get_ansi("blue")
+  of cyan: get_ansi("cyan")
+  of green: get_ansi("green")
+  else: get_ansi("blue")
+  let cr = get_ansi("reset")
+  return &"{cs}{s}{cr}"
 
 proc is_alpha*(s:string): bool =
   s.find(re"[^\w]+").isNone

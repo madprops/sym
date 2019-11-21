@@ -1,15 +1,15 @@
-sudo cp bin/gat /bin/gat
+sudo cp bin/sym /bin/sym
 
-echo "Binary placed in /bin/gat"
+echo "Binary placed in /bin/sym"
 
-if [[ -d ~/.config/gat ]]
+if [[ -d ~/.config/sym ]]
 then
     :
 else
-    mkdir ~/.config/gat
-    cp db.json ~/.config/gat/db.json
-    cp gato.sh ~/.config/gat/gato.sh
-    echo "Files placed in ~/.config/gat"
+    mkdir ~/.config/sym
+    cp db.json ~/.config/sym/db.json
+    cp db.json ~/.config/sym/db_backup.json
+    echo "Files placed in ~/.config/sym"
 fi
 
 echo "Done."
