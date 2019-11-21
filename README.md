@@ -60,9 +60,9 @@ Open a path in the file manager:
 sym open movies
 ```
 
-A script can be used with --file
+A script can be used with --script
 
-i.e: sym --file=~/myscript.txt
+i.e: sym --script=~/myscript.txt
 
 Scripts are 1 command per line.
 
