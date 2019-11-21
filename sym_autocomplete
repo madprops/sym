@@ -7,7 +7,8 @@ _sym()
 
     #Build a list of our keywords for auto-completion using
     #the tags file
-    local tags="remove rename list add removeall tag removepath removetag tags changepath open backup restore remake makescript path"
+    local tags="remove rename list add removeall tag removepath removetag tags 
+        changepath open backup restore remake runscript makescript path"
 
     #Generate possible matches and store them in the
     #array variable COMPREPLY
