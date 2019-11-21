@@ -1,3 +1,4 @@
+import config
 import dbase
 import utils
 import symprocs
@@ -223,11 +224,15 @@ proc list_items*() =
   log ""
 
 proc remove_all_items*() =
-  let ans = readLineFromStdin("Remove ALL items (yes, no): ").strip()
-  if ans == "yes":
+  var ans = ""
+  if not conf.force:
+    ans = readLineFromStdin("Remove ALL items (yes, no): ").strip()
+  
+  if conf.force or ans == "yes":
     db.items = initTable[string, Item]()
     log "All items were removed."
-    removeDir(symdir())
+    remove_symdir()
+    make_symdir()
     save_db()
 
 proc list_tag*(tag:string) =

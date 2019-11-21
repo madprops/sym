@@ -70,14 +70,20 @@ proc save_db*() =
   write_to_db_file(get_db_json())
 
 proc save_backup*() = 
-  let ans = readLineFromStdin(&"Save backup? (yes/no): ").strip()
-  if ans == "yes":
+  var ans = ""
+  if not conf.force:
+    ans = readLineFromStdin(&"Save backup? (yes/no): ").strip()
+  
+  if conf.force or ans == "yes":
     write_to_db_backup_file(original_jtext)
     log "Backup saved."
 
 proc restore_backup*() =
-  let ans = readLineFromStdin(&"Restore to last backup? (yes/no): ").strip()
-  if ans == "yes":
+  var ans = ""
+  if not conf.force:
+    ans = readLineFromStdin(&"Restore to last backup? (yes/no): ").strip()
+    
+  if conf.force or ans == "yes":
     write_to_db_file(read_db_backup_file())
     log "Database restored."
     get_db()

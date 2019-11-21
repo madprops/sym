@@ -3,18 +3,32 @@
     "version": 1
   },
   "items": {
-    "b1": {
+    "here": {
       "path": "/etc",
       "tags": [
-        "jojo"
+        "edit",
+        "corn"
       ]
     },
-    "asdf": {
+    "movies": {
       "path": "/usr/bin",
       "tags": [
-        "pok",
-        "jojo",
-        "asdf"
+        "future",
+        "rapid"
+      ]
+    },
+    "car": {
+      "path": "/var/www",
+      "tags": [
+        "web",
+        "trains"
+      ]
+    },
+    "bones": {
+      "path": "/bin",
+      "tags": [
+        "tree",
+        "fun"
       ]
     }
   }

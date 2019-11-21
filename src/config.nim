@@ -2,12 +2,13 @@ import nap
 
 type Config* = object
   tail*: seq[string]
+  script*: string
   dev*: bool
+  force*: bool
 
 var conf*: Config
 
 proc get_config*() =
-  let dev = use_arg(name="dev", kind="flag", help="Used for development")
 
   var info = 
     """
@@ -60,10 +61,21 @@ proc get_config*() =
     
     Open a path in the file manager:
       sym open movies
+    
+    A script can be used with --file
+    Scripts are 1 command per line.
+    For example:
+      movies ~/media/movies plot
+      tag movies woomy
+      backup
     """
+  
+  let dev = use_arg(name="dev", kind="flag", help="Used for development")
+  let script = use_arg(name="script", kind="value", help="Run a script with commands")
+  let force = use_arg(name="force", kind="flag", help="Run commands without confirmation")
 
   parse_args(info)
-  conf = Config(tail:argtail(), dev:dev.used)
+  conf = Config(tail:argtail(), dev:dev.used, script:script.val, force:force.used)
 
 proc show_info*() =
   print_help()

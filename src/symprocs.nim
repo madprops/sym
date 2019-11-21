@@ -57,11 +57,17 @@ proc remake_syms*() =
     for tag in it.tags:
       make_tag_sym(tag, name, it.path)
 
+proc make_symdir*() =
+  if not dirExists(symdir()):
+    createDir(symdir())
+    createDir(symdir().joinPath("tags"))
+
+proc remove_symdir*() =
+  if dirExists(symdir()):
+    removeDir(symdir())
+
 proc check_symdir*() =
-  let sd = symdir()
-  if not existsDir(sd):
-    createDir(sd)
-    createDir(sd.joinPath("tags"))
+  if not existsDir(symdir()):
+    make_symdir()
     if len(db.items) > 0:
       remake_syms()
-    
