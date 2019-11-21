@@ -40,12 +40,20 @@ proc make_tag_syms*(name:string) =
 
 proc rename_sym*(name:string, name_2:string) =
   let sd = symdir()
-  moveFile(sd.joinPath(name), sd.joinPath(name_2))
+  try:
+    moveFile(sd.joinPath(name), sd.joinPath(name_2))
+  except:
+    log "Can't move symlink."
+    return
 
   let td = sd.joinPath("tags")
   for tag in db.items[name_2].tags:
     let td2 = td.joinPath(tag)
-    moveFile(td2.joinPath(name), td2.joinPath(name_2))
+    try:
+      moveFile(td2.joinPath(name), td2.joinPath(name_2))
+    except:
+      log "Can't move tag symlink."
+      return
 
 proc remove_tag_sym*(name:string, tag:string) =
   let td = symdir()
