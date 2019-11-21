@@ -12,7 +12,7 @@ proc do_action(tail:seq[string]) =
   let actions = ["remove", "rename",
     "list", "add", "removeall", "tag", "removepath", 
     "removetag", "tags", "changepath", "open",
-    "backup", "restore"]
+    "backup", "restore", "remake"]
     
   for part in tail:
     if part == "": continue
@@ -65,6 +65,8 @@ proc do_action(tail:seq[string]) =
       remake_syms()
     of "backup":
       save_backup()
+    of "remake":
+      remake_syms()
     else: show_info()
 
 proc check_args() =

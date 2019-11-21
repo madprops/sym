@@ -1,3 +1,4 @@
+import utils
 import os
 import config
 import dbase
@@ -56,6 +57,7 @@ proc remake_syms*() =
     make_sym(name, it.path)
     for tag in it.tags:
       make_tag_sym(tag, name, it.path)
+  log "Symlinks remade."
 
 proc make_symdir*() =
   if not dirExists(symdir()):

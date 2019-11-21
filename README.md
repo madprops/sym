@@ -59,6 +59,10 @@ Open a path in the file manager:
 ```
 sym open movies
 ```
+Remake symlinks based on the database:
+```
+sym remake
+```
 
 A script can be used with --script
 
