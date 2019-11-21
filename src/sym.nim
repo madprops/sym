@@ -12,7 +12,8 @@ proc do_action(tail:seq[string]) =
   let actions = ["remove", "rename",
     "list", "add", "removeall", "tag", "removepath", 
     "removetag", "tags", "changepath", "open",
-    "backup", "restore", "remake", "makescript"]
+    "backup", "restore", "remake", "makescript",
+    "path"]
     
   for part in tail:
     if part == "": continue
@@ -51,6 +52,8 @@ proc do_action(tail:seq[string]) =
       open_item(items[0])
     of "makescript":
       make_script(items[0])
+    of "path":
+      show_path(items[0])
     else:
       print_item(items[0])
       

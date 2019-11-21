@@ -2,5 +2,34 @@
   "data": {
     "version": 1
   },
-  "items": {}
+  "items": {
+    "here": {
+      "path": "/etc",
+      "tags": [
+        "edit",
+        "corn"
+      ]
+    },
+    "movies": {
+      "path": "/usr/bin",
+      "tags": [
+        "future",
+        "rapid"
+      ]
+    },
+    "car": {
+      "path": "/var/www",
+      "tags": [
+        "web",
+        "trains"
+      ]
+    },
+    "bones": {
+      "path": "/etc/pulse/",
+      "tags": [
+        "tree",
+        "fun"
+      ]
+    }
+  }
 }

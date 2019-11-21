@@ -56,6 +56,9 @@ sym removepath re:\\w+""")
     
   add_example(title="Change the path of an item", content=
 """sym changepath movies /media/movies""")
+
+  add_example(title="Show the path of an item", content=
+"""sym path movies""")
     
   add_example(title="Open a path in the file manager", content=
 """sym open movies""")

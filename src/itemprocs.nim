@@ -117,6 +117,7 @@ proc change_path*(name:string, path:string) =
   let it = db.items[name]
   it.path = path
   make_sym(name, path)
+  make_tag_syms(name)
   log(&"{to_color(name, blue)} changed to {to_color(path, cyan)}")
   save_db()
 
@@ -282,3 +283,8 @@ proc make_script*(path:string) =
     log "Failed to save script file."
   
   log(&"Script saved as {to_color(path, cyan)}")
+
+proc show_path*(name:string) =
+  if db.items.hasKey(name):
+    let it = db.items[name]
+    log it.path

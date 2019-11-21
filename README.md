@@ -55,6 +55,10 @@ Change the path of an item:
 ```
 sym changepath movies /media/movies
 ```
+Show the path of an item:
+```
+sym path movies
+```
 Open a path in the file manager:
 ```
 sym open movies
