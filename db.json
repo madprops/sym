@@ -3,18 +3,18 @@
     "version": 1
   },
   "items": {
-    "here": {
-      "path": "/etc",
-      "tags": [
-        "edit",
-        "corn"
-      ]
-    },
     "movies": {
       "path": "/usr/bin",
       "tags": [
         "future",
         "rapid"
+      ]
+    },
+    "hear": {
+      "path": "/etc",
+      "tags": [
+        "edit",
+        "corn"
       ]
     },
     "car": {

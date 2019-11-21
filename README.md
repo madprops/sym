@@ -63,8 +63,17 @@ Remake symlinks based on the database:
 ```
 sym remake
 ```
+Make a backup:
+```
+sym backup
+``` 
+Restore from backup:
+```
+sym restore
+```
 
 A script can be used for automation.
+
 Scripts are 1 command per line.
     
 For example:

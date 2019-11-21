@@ -64,6 +64,12 @@ proc get_config*() =
     Remake symlinks based on the database:
       sym remake
     
+    Make a backup:
+      sym backup
+    
+    Restore from backup:
+      sym restore
+    
     Scripts can be used for automation.
     Scripts are 1 command per line.
 
