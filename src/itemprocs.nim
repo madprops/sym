@@ -107,6 +107,8 @@ proc change_path*(name:string, path:string) =
   if check_item(name):
     return
   
+  var path = fix_path(path)
+  
   if check_path(path):
     return
   
