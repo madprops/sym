@@ -16,4 +16,4 @@ And it will show the contents of
 ~/media/movies
 ```
 
-## [Full Documentation Here](docs/index.html)
+## [Full Documentation Here](https://madprops.github.io/sym/)
