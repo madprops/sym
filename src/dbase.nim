@@ -3,7 +3,6 @@ import os
 import config
 import json
 import tables
-import rdstdin
 import strformat
 import strutils
 
@@ -70,20 +69,16 @@ proc save_db*() =
   write_to_db_file(get_db_json())
 
 proc save_backup*() = 
-  var ans = ""
-  if not conf.force:
-    ans = readLineFromStdin(&"Save backup? (yes/no): ").strip()
+  if not conf.force and not confirm("Save backup?"):
+    return
   
-  if conf.force or ans == "yes":
-    write_to_db_backup_file(original_jtext)
-    log "Backup saved."
+  write_to_db_backup_file(original_jtext)
+  log "Backup saved."
 
 proc restore_backup*() =
-  var ans = ""
-  if not conf.force:
-    ans = readLineFromStdin(&"Restore to last backup? (yes/no): ").strip()
-    
-  if conf.force or ans == "yes":
-    write_to_db_file(read_db_backup_file())
-    log "Database restored."
-    get_db()
+  if not conf.force and not confirm("Restore to last backup?"):
+    return
+
+  write_to_db_file(read_db_backup_file())
+  log "Database restored."
+  get_db()

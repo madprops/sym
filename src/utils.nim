@@ -2,6 +2,7 @@ import nre
 import terminal
 import strformat
 import strutils
+import rdstdin
 
 type Color* = enum
   blue
@@ -67,3 +68,7 @@ proc is_numeric*(s:string): bool =
 
 proc is_numeric*(c:char): bool =
   return is_numeric $c
+
+proc confirm*(q:string): bool =
+  let ans = readLineFromStdin(&"{q} (yes/no): ").strip()
+  return ans == "yes"

@@ -8,7 +8,6 @@ import tables
 import nre
 import os
 import osproc
-import rdstdin
 import options
 
 proc check_item*(name:string): bool =
@@ -224,16 +223,14 @@ proc list_items*() =
   log ""
 
 proc remove_all_items*() =
-  var ans = ""
-  if not conf.force:
-    ans = readLineFromStdin("Remove ALL items (yes, no): ").strip()
+  if not conf.force and not confirm("Remove ALL items"):
+    return
   
-  if conf.force or ans == "yes":
-    db.items = initTable[string, Item]()
-    log "All items were removed."
-    remove_symdir()
-    make_symdir()
-    save_db()
+  db.items = initTable[string, Item]()
+  log "All items were removed."
+  remove_symdir()
+  make_symdir()
+  save_db()
 
 proc list_tag*(tag:string) =
   var names: seq[string]
