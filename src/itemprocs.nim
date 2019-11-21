@@ -290,3 +290,9 @@ proc show_path*(name:string) =
   if db.items.hasKey(name):
     let it = db.items[name]
     log it.path
+
+proc print_item_names*() =
+  var names: seq[string]
+  for name in db.items.keys:
+    names.add(name)
+  log names.join(" ")

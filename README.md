@@ -20,7 +20,7 @@ Remove an item:
 sym remove movies
 or regex...
 sym remove re:\\w+
-```    
+```
 Remove an item by path:
 ```
 sym removepath /media/movies
@@ -28,53 +28,56 @@ or regex...
 sym removepath re:\\w+
 ```    
 Rename an item:
-```
-sym rename movies moviez
-```    
+
+```sym rename movies moviez```
+
 Add a tag:
-```
-sym tag movies art
-```    
+
+```sym tag movies art```
+
 Remove a tag:
-```
-sym removetag movies art
-```
+
+```sym removetag movies art```
+
 List items:
-```
-sym list
-```
+
+```sym list```
+
 List tags:
-```
-sym tags
-``` 
+
+```sym tags``` 
+
 List paths associated with a tag:
-```
-sym tag funny
-``` 
+
+```sym tag funny``` 
+
 Change the path of an item:
-```
-sym changepath movies /media/movies
-```
+
+```sym changepath movies /media/movies```
+
 Show the path of an item:
-```
-sym path movies
-```
+
+```sym path movies```
+
 Open a path in the file manager:
-```
-sym open movies
-```
+
+```sym open movies```
+
 Remake symlinks based on the database:
-```
-sym remake
-```
+
+```sym remake```
+
 Make a backup:
-```
-sym backup
-``` 
+
+```sym backup``` 
+
 Restore from backup:
-```
-sym restore
-```
+
+```sym restore```
+
+Print a string of item names:
+
+```sym printnames```
 
 A script can be used for automation.
 
@@ -87,11 +90,9 @@ tag movies woomy
 backup
 ```
 Run a script:
-```
-sym runscript /path/to/script
-```
+
+```sym runscript /path/to/script```
     
 Make a script:
-```
-sym makescript /path/to/save
-```
+
+```sym makescript /path/to/save```

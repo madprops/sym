@@ -13,7 +13,7 @@ proc do_action(tail:seq[string]) =
     "list", "add", "removeall", "tag", "removepath", 
     "removetag", "tags", "changepath", "open",
     "backup", "restore", "remake", "makescript",
-    "path"]
+    "path", "printnames"]
     
   for part in tail:
     if part == "": continue
@@ -72,6 +72,8 @@ proc do_action(tail:seq[string]) =
       save_backup()
     of "remake":
       remake_syms()
+    of "printnames":
+      print_item_names()
     else: show_info()
 
 proc run_script(path:string) =

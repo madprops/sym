@@ -72,6 +72,9 @@ sym removepath re:\\w+""")
   add_example(title="Restore from backup", content=
 """sym restore""")
 
+  add_example(title="Print a string of item names", content=
+"""sym printnames""")
+
   add_example(title="Scripts", content=
 """
 #Scripts can be used for automation.
