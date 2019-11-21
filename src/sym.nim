@@ -8,7 +8,8 @@ proc check_args() =
   var items: seq[string]
   let actions = ["remove", "rename",
     "list", "add", "removeall", "tag", "removepath", 
-    "removetag", "tags", "changepath", "open", "restore"]
+    "removetag", "tags", "changepath", "open",
+    "backup", "restore"]
   
   for part in conf.tail:
     if part == "": continue
@@ -59,6 +60,8 @@ proc check_args() =
     of "restore":
       restore_backup()
       remake_syms()
+    of "backup":
+      save_backup()
     else: show_info()
 
 # Main
@@ -67,4 +70,3 @@ when isMainModule:
   get_db()
   check_symdir()
   check_args()
-  save_backup()
