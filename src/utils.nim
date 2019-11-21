@@ -6,14 +6,16 @@ import strformat
 import strutils
 import rdstdin
 
-type Color* = enum
-  blue
-  cyan
+type AnsiKind* = enum
   green
+  cyan
   red
+  blue
+  bright
+  reset
 
-proc get_ansi*(color:string): string =
-  case color
+proc get_ansi*(kind:string): string =
+  case kind
   of "green": ansiForegroundColorCode(fgGreen)
   of "cyan": ansiForegroundColorCode(fgCyan)
   of "red": ansiForegroundColorCode(fgRed)
@@ -21,6 +23,15 @@ proc get_ansi*(color:string): string =
   of "bright": ansiStyleCode(styleBright)
   of "reset": ansiResetCode
   else: ""
+
+proc get_ansi*(kind:AnsiKind): string =
+  case kind
+  of green: get_ansi("green")
+  of cyan: get_ansi("cyan")
+  of red: get_ansi("red")
+  of blue: get_ansi("blue")
+  of bright: get_ansi("bright")
+  of reset: get_ansi("reset")
 
 proc log*(text:string, mode="normal") =
   if mode == "normal":
@@ -51,7 +62,7 @@ proc format_item*(name:string, path:string, tags=newSeq[string]()): string =
     &" {cs3}{ts}{rs}" else: &"{rs}"
   return &"{cs}{name} {cs2}{path}{s3}"
 
-proc to_color*(s:string, color:Color): string =
+proc to_color*(s:string, color:AnsiKind): string =
   var cs = case color:
   of blue: get_ansi("blue")
   of cyan: get_ansi("cyan")
