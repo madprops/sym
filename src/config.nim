@@ -14,52 +14,52 @@ proc get_config*() =
     Symlink creator and manager
 
     Example usage to create an item:
-      gat movies ~/media/movies entertainment videos.
+      sym movies ~/media/movies entertainment videos.
       This creates an item called movies.
       Associated with the provided path.
       And 2 tags were added to it.
-      This will create a symlink: ~/gat/movies
+      This will create a symlink: ~/sym/movies
       It will also create tag symlinks:
-      ~/gat/tags/entertainment/movies
-      and ~/gat/tags/videos/movies
+      ~/sym/tags/entertainment/movies
+      and ~/sym/tags/videos/movies
       These 3 symlinks point to the same path.
-      You can do for instance 'ls ~/gat/movies'
+      You can do for instance 'ls ~/sym/movies'
       And it will show the contents of
       ~/media/movies
     
     Remove an item:
-      gat remove movies
+      sym remove movies
+      or regex...
+      sym remove re:\\w+
     
     Remove an item by path:
-      gat removepath /media/movies
+      sym removepath /media/movies
       or regex...
-      gat removepath re:\\w+
+      sym removepath re:\\w+
     
     Rename an item:
-      gat rename movies moviez
+      sym rename movies moviez
     
     Add a tag:
-      gat tag movies art
+      sym tag movies art
     
     Remove a tag:
-      gat removetag movies art
-      or regex...
-      gat remove re:\\d+
+      sym removetag movies art
     
     List items:
-      gat list
+      sym list
     
     List tags:
-      gat tags
+      sym tags
     
     List paths associated with a tag:
-      gat tag funny
+      sym tag funny
     
     Change the path of an item:
-      gat changepath movies /media/movies
+      sym changepath movies /media/movies
     
     Open a path in the file manager:
-      gat open movies
+      sym open movies
     """
 
   parse_args(info)
