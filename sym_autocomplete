@@ -1,0 +1,17 @@
+_sym()
+{
+    local cur
+    COMPREPLY=()
+    #Variable to hold the current word
+    cur="${COMP_WORDS[COMP_CWORD]}"
+
+    #Build a list of our keywords for auto-completion using
+    #the tags file
+    local tags="remove rename list add removeall tag removepath removetag tags changepath open backup restore remake makescript path"
+
+    #Generate possible matches and store them in the
+    #array variable COMPREPLY
+    COMPREPLY=($(compgen -W "${tags}" $cur))
+}
+
+complete -F _sym sym

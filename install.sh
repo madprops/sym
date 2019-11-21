@@ -1,6 +1,8 @@
 sudo cp bin/sym /bin/sym
+echo "Binary placed in /bin"
 
-echo "Binary placed in /bin/sym"
+sudo cp sym_autocomplete /etc/bash_completion.d/sym_autocomplete
+echo "Autocompletion module placed in /etc/bash_completion"
 
 if [[ -d ~/.config/sym ]]
 then
