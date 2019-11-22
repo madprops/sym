@@ -3,32 +3,11 @@
     "version": 1
   },
   "items": {
-    "aaaa": {
-      "path": "/etc/pki",
-      "tags": [
-        "tree",
-        "mav"
-      ]
-    },
-    "aacz": {
-      "path": "/etc/pm/sleep.d",
-      "tags": [
-        "pok",
-        "ma"
-      ]
-    },
     "bones": {
-      "path": "/etc/pulse/",
+      "path": "/bin",
       "tags": [
         "tree",
         "fun"
-      ]
-    },
-    "caaa": {
-      "path": "/etc/pki/fwupd",
-      "tags": [
-        "tree",
-        "mav"
       ]
     },
     "car": {

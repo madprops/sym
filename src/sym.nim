@@ -1,10 +1,13 @@
 import utils
 import dbase
 import config
-import os
 import itemprocs
 import symprocs
 import strutils
+
+proc startup() =
+  get_db()
+  check_symdir()
 
 proc do_action(tail:seq[string]) =
   var action = ""
@@ -30,49 +33,67 @@ proc do_action(tail:seq[string]) =
       
     case action
     of "add":
+      startup()
       add_item(items[0], items[1], rtail2)
     of "rename":
+      startup()
       rename_item(items[0], items[1])
     of "tag":
+      startup()
       add_tags(items[0], rtail)
     of "removetag":
+      startup()
       remove_tag(items[0], items[1])
     of "changepath":
+      startup()
       change_path(items[0], items[1])
       
   elif items.len == 1:
     case action
     of "remove":
+      startup()
       remove_item(items[0])
     of "removepath":
+      startup()
       remove_path(items[0])
     of "tag":
+      startup()
       list_tag(items[0])
     of "open":
+      startup()
       open_item(items[0])
     of "makescript":
       make_script(items[0])
     of "path":
+      startup()
       show_path(items[0])
     else:
+      startup()
       print_item(items[0])
       
   elif items.len == 0:
     case action
     of "list":
+      startup()
       list_items()
     of "tags":
+      startup()
       list_tags()
     of "removeall":
+      startup()
       remove_all_items()
     of "restore":
+      startup()
       restore_backup()
       remake_syms()
     of "backup":
+      startup()
       save_backup()
     of "remake":
+      startup()
       remake_syms()
     of "printnames":
+      startup()
       print_item_names()
     else: show_info()
 
@@ -98,6 +119,4 @@ proc check_args() =
 # Main
 when isMainModule:
   get_config()
-  get_db()
-  check_symdir()
   check_args()

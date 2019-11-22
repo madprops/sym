@@ -3,6 +3,20 @@
     "version": 1
   },
   "items": {
+    "bones": {
+      "path": "/bin",
+      "tags": [
+        "tree",
+        "fun"
+      ]
+    },
+    "car": {
+      "path": "/var/www",
+      "tags": [
+        "web",
+        "trains"
+      ]
+    },
     "here": {
       "path": "/etc",
       "tags": [
@@ -15,20 +29,6 @@
       "tags": [
         "future",
         "rapid"
-      ]
-    },
-    "car": {
-      "path": "/var/www",
-      "tags": [
-        "web",
-        "trains"
-      ]
-    },
-    "bones": {
-      "path": "/etc/pulse/",
-      "tags": [
-        "tree",
-        "fun"
       ]
     }
   }
