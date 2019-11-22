@@ -1,0 +1,1 @@
+nim compile -d:release -o=bin/sym-release-linux src/sym.nim

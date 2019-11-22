@@ -1,4 +1,4 @@
-sudo cp bin/sym /bin/sym
+sudo cp bin/sym-release-linux /bin/sym
 echo "Binary placed in /bin"
 
 sudo cp sym_autocomplete /etc/bash_completion.d/sym_autocomplete
