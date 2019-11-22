@@ -5,9 +5,13 @@ import itemprocs
 import symprocs
 import strutils
 
+var started = false
+
 proc startup() =
+  if started: return
   get_db()
   check_symdir()
+  started = true
 
 proc do_action(tail:seq[string]) =
   var action = ""
