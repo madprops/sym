@@ -1,5 +1,7 @@
 ## Symlink creator and manager
 
+### This has been tested on Linux only.
+
 Example usage to create an item:
 ```
 sym movies ~/media/movies entertainment videos
