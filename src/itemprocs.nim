@@ -80,6 +80,11 @@ proc add_item*(name:string, path:string, tags=newSeq[string]()) =
     log "Item names can't have spaces."
     return
   
+  let reserved_names = ["tags"]
+  if name in reserved_names:
+    log(&"{to_color(name, blue)} is a reserved name.")
+    return
+  
   var path = fix_path(path)
   
   if check_dir_exists(path):
