@@ -3,6 +3,41 @@
     "version": 1
   },
   "items": {
+    "aaaa": {
+      "path": "/etc/pki",
+      "tags": [
+        "tree",
+        "mav"
+      ]
+    },
+    "aacz": {
+      "path": "/etc/pm/sleep.d",
+      "tags": [
+        "pok",
+        "ma"
+      ]
+    },
+    "bones": {
+      "path": "/etc/pulse/",
+      "tags": [
+        "tree",
+        "fun"
+      ]
+    },
+    "caaa": {
+      "path": "/etc/pki/fwupd",
+      "tags": [
+        "tree",
+        "mav"
+      ]
+    },
+    "car": {
+      "path": "/var/www",
+      "tags": [
+        "web",
+        "trains"
+      ]
+    },
     "here": {
       "path": "/etc",
       "tags": [
@@ -15,20 +50,6 @@
       "tags": [
         "future",
         "rapid"
-      ]
-    },
-    "car": {
-      "path": "/var/www",
-      "tags": [
-        "web",
-        "trains"
-      ]
-    },
-    "bones": {
-      "path": "/etc/pulse/",
-      "tags": [
-        "tree",
-        "fun"
       ]
     }
   }

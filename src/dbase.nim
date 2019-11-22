@@ -3,7 +3,6 @@ import os
 import config
 import json
 import tables
-import strformat
 import strutils
 
 type Data* = object
@@ -15,7 +14,7 @@ type Item* = ref object
 
 type DB* = object
   data*: Data
-  items*: Table[string, Item]
+  items*: OrderedTable[string, Item]
 
 var db*: DB
 var original_jtext: string
@@ -60,7 +59,7 @@ proc get_db*() =
   original_jtext = read_db_file()
   let db_json = parseJson(original_jtext)
   db = DB(data:to(db_json["data"], Data), 
-    items:to(db_json["items"], Table[string, Item]))
+    items:to(db_json["items"], OrderedTable[string, Item]))
 
 proc get_db_json*(): string =
   return (% db).pretty()

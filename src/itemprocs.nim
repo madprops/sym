@@ -9,6 +9,7 @@ import nre
 import os
 import osproc
 import options
+import algorithm
 
 proc check_item*(name:string): bool =
   if not db.items.hasKey(name):
@@ -33,6 +34,9 @@ proc get_item(name:string): Option[Item] =
   if db.items.hasKey(name):
     return some(db.items[name])
   return none(Item)
+
+proc sort_items() =
+  db.items.sort(system.cmp)
 
 proc add_tag(name:string, tag:string) =
   if check_item(name):
@@ -99,6 +103,7 @@ proc add_item*(name:string, path:string, tags=newSeq[string]()) =
   for tag in ntags:
     make_tag_sym(tag, name, path)
 
+  sort_items()
   save_db()
   let fmt = format_item(name, it.path, ntags)
   log(&"{fmt} added.")
@@ -195,6 +200,7 @@ proc rename_item*(name:string, name_2:string) =
   db.items.del(name)
   log(&"{to_color(name, blue)} renamed to {to_color(name_2, blue)}.")
   rename_sym(name, name_2)
+  sort_items()
   save_db()
 
 proc remove_tag*(name:string, tag:string) =
@@ -226,7 +232,7 @@ proc remove_all_items*() =
   if not conf.force and not confirm("Remove ALL items"):
     return
   
-  db.items = initTable[string, Item]()
+  db.items = initOrderedTable[string, Item]()
   log "All items were removed."
   remove_symdir()
   make_symdir()
@@ -255,6 +261,8 @@ proc list_tags*() =
     for tag in it.tags:
       if not tags.contains(tag):
         tags.add(tag)
+  
+  tags.sort(system.cmp)
   
   log ""
   log(&"Tags ({tags.len})", "title")
