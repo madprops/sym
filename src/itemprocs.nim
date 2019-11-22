@@ -10,6 +10,7 @@ import os
 import osproc
 import options
 import algorithm
+import browsers
 
 proc check_item*(name:string): bool =
   if not db.items.hasKey(name):
@@ -280,7 +281,7 @@ proc open_item*(name:string) =
   if check_item(name):
     return
   let it = db.items[name]
-  discard execCmd(&"xdg-open {it.path}")
+  openDefaultBrowser(it.path)
 
 proc make_script*(path:string) =
   var path = fix_path_2(path)
