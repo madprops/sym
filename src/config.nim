@@ -90,11 +90,14 @@ sym removepath re:\\w+""")
 
   add_example(title="Make a script", content=
 """sym makescript /path/to/save""")
+
+  add_header("Symlink creator and manager")
   
   let dev = use_arg(name="dev", kind="flag", help="Used for development")
   let force = use_arg(name="force", kind="flag", help="Run commands without confirmation")
 
-  parse_args("Symlink creator and manager")
+  parse_args()
+  
   conf = Config(tail:argtail(), dev:dev.used, force:force.used)
 
 proc show_info*() =

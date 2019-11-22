@@ -12,4 +12,4 @@ bin           = @["sym"]
 # Dependencies
 
 requires "nim >= 1.0.0"
-requires "nap >= 0.9.1"
+requires "nap >= 1.0.1"
