@@ -21,8 +21,7 @@ sym add movies ~/media/movies media videos
 #and ~/sym/tags/videos/movies
 #These 3 symlinks point to the same path.
 #You can do for instance 'ls ~/sym/movies'
-#And it will show the contents of
-#~/media/movies""")
+#And it will show the contents of ~/media/movies""")
     
   add_example(title="Remove an item", content=
 """
