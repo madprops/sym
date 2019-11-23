@@ -4,13 +4,13 @@
 
 Example usage to create an item:
 ```
-sym add movies ~/media/movies media videos
+sym add movies ~/media/movies art videos
 This creates an item called movies.
 Associated with the provided path.
 And 2 tags were added to it.
 This will create a symlink: ~/sym/movies
 It will also create tag symlinks:
-~/sym/tags/entertainment/movies
+~/sym/tags/art/movies
 and ~/sym/tags/videos/movies
 These 3 symlinks point to the same path.
 You can do for instance 'ls ~/sym/movies'
