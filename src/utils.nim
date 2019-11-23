@@ -102,3 +102,6 @@ proc fix_path_2*(path:string): string =
       getCurrentDir().parentDir().joinPath(path)
       else: getCurrentDir().joinPath(path)
   return path
+
+proc lined*(items:seq[string]): string =
+  return items.join(" ")

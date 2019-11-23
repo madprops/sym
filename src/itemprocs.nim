@@ -297,7 +297,7 @@ proc make_script*(path:string) =
 
   for name in db.items.keys:
     let it = db.items[name]
-    lines.add(&"add {name} {it.path} {format_tags(it.tags)}")
+    lines.add(&"add {name} {it.path} {lined(it.tags)}")
 
   lines.add("")
   let script = lines.join("\n")
