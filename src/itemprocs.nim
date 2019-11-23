@@ -2,12 +2,12 @@ import config
 import dbase
 import utils
 import symprocs
+import globals
 import strformat
 import strutils
 import tables
 import nre
 import os
-import osproc
 import options
 import algorithm
 import browsers
@@ -76,16 +76,21 @@ proc check_dir_exists(path:string): bool =
     return true
   return false
 
-proc add_item*(name:string, path:string, tags=newSeq[string]()) =
+proc check_name(name:string): bool =
   if name.contains(" "):
     log "Item names can't have spaces."
-    return
-  
-  let reserved_names = ["tags"]
-  if name in reserved_names:
+    return true
+    
+  if name in actions:
     log(&"{to_color(name, blue)} is a reserved name.")
-    return
+    return true
   
+  return false
+
+proc add_item*(name:string, path:string, tags=newSeq[string]()) =
+  if check_name(name):
+    return
+
   var path = fix_path(path)
   
   if check_dir_exists(path):
@@ -200,6 +205,9 @@ proc rename_item*(name:string, name_2:string) =
   if check_item(name):
     return
   if check_item_2(name_2):
+    return
+  
+  if check_name(name_2):
     return
 
   db.items[name_2] = move db.items[name]

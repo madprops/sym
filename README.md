@@ -4,7 +4,7 @@
 
 Example usage to create an item:
 ```
-sym movies ~/media/movies entertainment videos
+sym add movies ~/media/movies media videos
 This creates an item called movies.
 Associated with the provided path.
 And 2 tags were added to it.
