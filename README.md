@@ -14,8 +14,7 @@ It will also create tag symlinks:
 and ~/sym/tags/videos/movies
 These 3 symlinks point to the same path.
 You can do for instance 'ls ~/sym/movies'
-And it will show the contents of
-~/media/movies
+And it will show the contents of ~/media/movies
 ```
 
 ## [Full Documentation Here](https://madprops.github.io/sym/)

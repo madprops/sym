@@ -11,7 +11,7 @@ proc get_config*() =
 
   add_example(title="Create an item", content=
 """
-sym add movies ~/media/movies media videos.
+sym add movies ~/media/movies media videos
 #This creates an item called movies.
 #Associated with the provided path.
 #And 2 tags were added to it.
