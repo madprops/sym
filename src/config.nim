@@ -9,7 +9,7 @@ var conf*: Config
 
 proc get_config*() =
 
-  add_example(title="Create an item", content=
+  add_example(title="Add an item", content=
 """
 sym add movies ~/media/movies art videos
 #This creates an item called movies.
