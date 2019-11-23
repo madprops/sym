@@ -6,36 +6,36 @@
     "bones": {
       "path": "/bin",
       "tags": [
-        "tree",
-        "fun"
+        "#tree",
+        "#fun"
       ]
     },
     "car": {
       "path": "/var/www",
       "tags": [
-        "web",
-        "trains"
+        "#web",
+        "#trains"
       ]
     },
     "here": {
       "path": "/etc",
       "tags": [
-        "edit",
-        "corn"
+        "#edit",
+        "#corn"
       ]
     },
     "oaisjdfioajsdf": {
       "path": "/media",
       "tags": [
-        "oaisdfj",
-        "2o3i4j"
+        "#oaisdfj",
+        "#2o3i4j"
       ]
     },
     "removealxcv": {
       "path": "/usr/bin",
       "tags": [
-        "future",
-        "rapid"
+        "#future",
+        "#rapid"
       ]
     }
   }

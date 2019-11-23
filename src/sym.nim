@@ -63,6 +63,7 @@ proc do_action(tail:seq[string]) =
           startup()
           open_item(items[0])
         of "makescript":
+          startup()
           make_script(items[0])
         of "path":
           startup()
