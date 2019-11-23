@@ -13,31 +13,31 @@ import algorithm
 import browsers
 
 proc check_item*(name:string): bool =
-  if not db.items.hasKey(name):
+  if not db().items.hasKey(name):
     log &"{to_color(name, blue)} doesn't exist."
     return true
   return false
 
 proc check_item_2*(name:string): bool =
-  if db.items.hasKey(name):
+  if db().items.hasKey(name):
     log &"{to_color(name, blue)} already exists."
     return true
   return false
 
 proc check_tag(name:string, tag:string): bool =
-  let it = db.items[name]
+  let it = db().items[name]
   if it.tags.contains(tag):
     log(&"{to_color(name, blue)} already has tag {to_color(tag, green)}")
     return true
   return false
 
 proc get_item(name:string): Option[Item] =
-  if db.items.hasKey(name):
-    return some(db.items[name])
+  if db().items.hasKey(name):
+    return some(db().items[name])
   return none(Item)
 
 proc sort_items() =
-  db.items.sort(system.cmp)
+  db().items.sort(system.cmp)
 
 proc add_tag(name:string, tag:string) =
   if check_item(name):
@@ -57,8 +57,8 @@ proc add_tags*(name:string, tags:seq[string]) =
     add_tag(name, tag)
 
 proc get_item_name_by_path(path:string): string =
-  for name in db.items.keys:
-    let it = db.items[name]
+  for name in db().items.keys:
+    let it = db().items[name]
     if it.path == path:
       return name
   return ""
@@ -103,7 +103,7 @@ proc add_item*(name:string, path:string, tags=newSeq[string]()) =
     return
 
   let it = Item(path:path, tags:tags)
-  db.items[name] = it
+  db().items[name] = it
 
   var ntags: seq[string]
   for tag in tags:
@@ -132,7 +132,7 @@ proc change_path*(name:string, path:string) =
     return
   
   remove_sym(name)
-  let it = db.items[name]
+  let it = db().items[name]
   it.path = path
   make_sym(name, path)
   make_tag_syms(name)
@@ -141,7 +141,7 @@ proc change_path*(name:string, path:string) =
 
 proc do_remove_item(name:string, save=true) =
   remove_sym(name)
-  db.items.del(name)
+  db().items.del(name)
   log &"{to_color(name, blue)} removed."
   if save:
     save_db()
@@ -151,7 +151,7 @@ proc remove_item_by_regex(s:string, save=true) =
   var res = re(rs)
   var removed = false
       
-  for name in db.items.keys:
+  for name in db().items.keys:
     let matches = name.find(res)
     if matches.isSome:
       do_remove_item(name, false)
@@ -175,8 +175,8 @@ proc remove_path_by_regex*(s:string) =
   var res = re(rs)
   var removed = false
     
-  for name in db.items.keys:
-    let path = db.items[name].path
+  for name in db().items.keys:
+    let path = db().items[name].path
     let matches = path.find(res)
     if matches.isSome:
       do_remove_item(name, false)
@@ -192,8 +192,8 @@ proc remove_path*(path:string) =
 
   var removed = false
 
-  for name in db.items.keys:
-    let it = db.items[name]
+  for name in db().items.keys:
+    let it = db().items[name]
     if path == it.path:
       do_remove_item(name, false)
       removed = true
@@ -210,19 +210,19 @@ proc rename_item*(name:string, name_2:string) =
   if check_name(name_2):
     return
 
-  db.items[name_2] = move db.items[name]
-  db.items.del(name)
+  db().items[name_2] = move db().items[name]
+  db().items.del(name)
   log(&"{to_color(name, blue)} renamed to {to_color(name_2, blue)}.")
   rename_sym(name, name_2)
   sort_items()
   save_db()
 
 proc remove_tag*(name:string, tag:string) =
-  for i in (0..db.items[name].tags.len - 1):
-    let tg = db.items[name].tags[i]
+  for i in (0..db().items[name].tags.len - 1):
+    let tg = db().items[name].tags[i]
     if tag == tg:
         log(&"Tag {to_color(tg, green)} removed from {to_color(name, blue)}.")
-        db.items[name].tags.delete(i)
+        db().items[name].tags.delete(i)
         remove_tag_sym(name, tag)
         save_db()
         return
@@ -232,13 +232,13 @@ proc remove_tag*(name:string, tag:string) =
 proc print_item*(name:string) =
   if check_item(name):
     return
-  let it = db.items[name]
+  let it = db().items[name]
   log(format_item(name, it.path, it.tags))
 
 proc list_items*() =
   log ""
-  log(&"Items ({len(db.items)})", "title")
-  for name in db.items.keys:
+  log(&"Items ({len(db().items)})", "title")
+  for name in db().items.keys:
     print_item(name)
   log ""
 
@@ -246,7 +246,7 @@ proc remove_all_items*() =
   if not conf.force and not confirm("Remove ALL items"):
     return
   
-  db.items = initOrderedTable[string, Item]()
+  db().items = initOrderedTable[string, Item]()
   log "All items were removed."
   remove_symdir()
   make_symdir()
@@ -254,8 +254,8 @@ proc remove_all_items*() =
 
 proc list_tag*(tag:string) =
   var names: seq[string]
-  for name in db.items.keys:
-    let it = db.items[name]
+  for name in db().items.keys:
+    let it = db().items[name]
     if it.tags.contains(tag):
       names.add(name)
     
@@ -263,15 +263,15 @@ proc list_tag*(tag:string) =
   let s = &"#{tag}"
   log(&"Paths in {to_color(s, green)} ({names.len})")
   for name in names:
-    let it = db.items[name]
+    let it = db().items[name]
     let fmt = format_item(name, it.path)
     log fmt
   log ""
 
 proc list_tags*() =
   var tags: seq[string]
-  for name in db.items.keys:
-    let it = db.items[name]
+  for name in db().items.keys:
+    let it = db().items[name]
     for tag in it.tags:
       if not tags.contains(tag):
         tags.add(tag)
@@ -288,15 +288,15 @@ proc list_tags*() =
 proc open_item*(name:string) =
   if check_item(name):
     return
-  let it = db.items[name]
+  let it = db().items[name]
   openDefaultBrowser(it.path)
 
 proc make_script*(path:string) =
   var path = fix_path_2(path)
   var lines: seq[string]
 
-  for name in db.items.keys:
-    let it = db.items[name]
+  for name in db().items.keys:
+    let it = db().items[name]
     lines.add(&"add {name} {it.path} {lined(it.tags)}")
 
   lines.add("")
@@ -310,12 +310,12 @@ proc make_script*(path:string) =
   log(&"Script saved as {to_color(path, cyan)}")
 
 proc show_path*(name:string) =
-  if db.items.hasKey(name):
-    let it = db.items[name]
+  if db().items.hasKey(name):
+    let it = db().items[name]
     log it.path
 
 proc print_item_names*() =
   var names: seq[string]
-  for name in db.items.keys:
+  for name in db().items.keys:
     names.add(name)
   log names.join(" ")

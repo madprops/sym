@@ -34,7 +34,7 @@ proc make_tag_sym*(tag:string, name:string, path:string) =
       log "Can't create symlink."
 
 proc make_tag_syms*(name:string) =
-  let it = db.items[name]
+  let it = db().items[name]
   for tag in it.tags:
     make_tag_sym(tag, name, it.path)
 
@@ -47,7 +47,7 @@ proc rename_sym*(name:string, name_2:string) =
     return
 
   let td = sd.joinPath("tags")
-  for tag in db.items[name_2].tags:
+  for tag in db().items[name_2].tags:
     let td2 = td.joinPath(tag)
     try:
       moveFile(td2.joinPath(name), td2.joinPath(name_2))
@@ -82,7 +82,7 @@ proc remove_sym*(name:string) =
     log "Can't remove symlink."
     return
 
-  for tag in db.items[name].tags:
+  for tag in db().items[name].tags:
     remove_tag_sym(name, tag)
   
 proc make_symdir*() =
@@ -104,8 +104,8 @@ proc remake_syms*() =
   remove_symdir()
   make_symdir()
 
-  for name in db.items.keys:
-    let it = db.items[name]
+  for name in db().items.keys:
+    let it = db().items[name]
     make_sym(name, it.path)
     for tag in it.tags:
       make_tag_sym(tag, name, it.path)
@@ -115,5 +115,5 @@ proc remake_syms*() =
 proc check_symdir*() =
   if not existsDir(symdir()):
     make_symdir()
-    if len(db.items) > 0:
+    if len(db().items) > 0:
       remake_syms()

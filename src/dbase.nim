@@ -12,12 +12,13 @@ type Item* = ref object
   path*: string
   tags*: seq[string]
 
-type DB* = object
+type DB* = ref object
   data*: Data
   items*: OrderedTable[string, Item]
 
-var db*: DB
+var dbo*: DB
 var original_jtext: string
+var db_ready = false
 
 proc get_db_path(): string =
   if conf.dev:
@@ -58,11 +59,17 @@ proc write_to_db_backup_file(jtext:string) =
 proc get_db*() =
   original_jtext = read_db_file()
   let db_json = parseJson(original_jtext)
-  db = DB(data:to(db_json["data"], Data), 
+  dbo = DB(data:to(db_json["data"], Data), 
     items:to(db_json["items"], OrderedTable[string, Item]))
+  db_ready = true
+
+proc db*(): DB =
+  if not db_ready:
+    get_db()
+  return dbo
 
 proc get_db_json*(): string =
-  return (% db).pretty()
+  return (% db()[]).pretty()
 
 proc save_db*() = 
   write_to_db_file(get_db_json())

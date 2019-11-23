@@ -6,14 +6,6 @@ import itemprocs
 import symprocs
 import strutils
 
-var started = false
-
-proc startup() =
-  if started: return
-  get_db()
-  check_symdir()
-  started = true
-
 proc do_action(tail:seq[string]) =
   var action = ""
   var items: seq[string]
@@ -32,70 +24,51 @@ proc do_action(tail:seq[string]) =
 
       case action
       of "add":
-        startup()
         add_item(items[0], items[1], rtail2)
       of "rename":
-        startup()
         rename_item(items[0], items[1])
       of "tag":
-        startup()
         add_tags(items[0], rtail)
       of "removetag":
-        startup()
         remove_tag(items[0], items[1])
       of "changepath":
-        startup()
         change_path(items[0], items[1])
       
   elif items.len == 1:
     if action != "":
       case action
         of "remove":
-          startup()
           remove_item(items[0])
         of "removepath":
-          startup()
           remove_path(items[0])
         of "tag":
-          startup()
           list_tag(items[0])
         of "open":
-          startup()
           open_item(items[0])
         of "makescript":
-          startup()
           make_script(items[0])
         of "path":
-          startup()
           show_path(items[0])
     else:
-      startup()
       print_item(items[0])
       
   elif items.len == 0:
     if action != "":
       case action
       of "list":
-        startup()
         list_items()
       of "tags":
-        startup()
         list_tags()
       of "removeall":
-        startup()
         remove_all_items()
       of "restore":
-        startup()
         restore_backup()
         remake_syms()
       of "backup":
-        startup()
         save_backup()
       of "remake":
-        startup()
         remake_syms()
       of "printnames":
-        startup()
         print_item_names()
     else: show_info()
 
@@ -121,4 +94,5 @@ proc check_args() =
 # Main
 when isMainModule:
   get_config()
+  check_symdir()
   check_args()
