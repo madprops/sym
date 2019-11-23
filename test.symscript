@@ -1,6 +1,6 @@
 removeall
-bones /bin tree fun
-car /var/www web trains
-movies /usr/bin future rapid
-here /etc edit corn
+add bones /bin tree fun
+add car /var/www web trains
+add movies /usr/bin future rapid
+add here /etc edit corn
 backup
