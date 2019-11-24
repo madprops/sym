@@ -38,11 +38,14 @@ sym removepath re:\\w+""")
   add_example(title="Rename an item", content=
 """sym rename movies moviez""")
     
-  add_example(title="Add a tag", content=
-"""sym tag movies art""")
+  add_example(title="Add tags", content=
+"""sym addtags movies art modern""")
     
-  add_example(title="Remove a tag", content=
-"""sym removetag movies art""")
+  add_example(title="Remove tags", content=
+"""sym removetags movies art modern""")
+
+  add_example(title="Replace tags", content=
+"""sym replacetags movies art modern""")
     
   add_example(title="List items", content=
 """sym list""")

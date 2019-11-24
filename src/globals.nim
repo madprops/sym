@@ -1,5 +1,23 @@
-const actions* = ["remove", "rename",
-"list", "add", "removeall", "tag", "removepath", 
-"removetag", "tags", "changepath", "open",
-"backup", "restore", "remake", "makescript",
-"path", "printnames", "add"]
+const actions* = [
+  "add", 
+  "rename",
+  "remove", 
+  "removeall", 
+  "list", 
+  "tag", 
+  "tags", 
+  "addtags",
+  "addtag",
+  "replacetags",
+  "removepath", 
+  "removetags", 
+  "removetag", 
+  "changepath", 
+  "open",
+  "backup", 
+  "restore", 
+  "remake", 
+  "makescript",
+  "printnames", 
+  "path"
+]

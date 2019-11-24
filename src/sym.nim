@@ -27,10 +27,16 @@ proc do_action(tail:seq[string]) =
         add_item(items[0], items[1], rtail2)
       of "rename":
         rename_item(items[0], items[1])
-      of "tag":
+      of "addtags":
         add_tags(items[0], rtail)
+      of "addtag":
+        add_tags(items[0], rtail)
+      of "replacetags":
+        replace_tags(items[0], rtail)
+      of "removetags":
+        remove_tags(items[0], rtail)
       of "removetag":
-        remove_tag(items[0], items[1])
+        remove_tags(items[0], rtail)
       of "changepath":
         change_path(items[0], items[1])
       

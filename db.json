@@ -6,15 +6,15 @@
     "bones": {
       "path": "/bin",
       "tags": [
-        "tree",
-        "fun"
+        "aoisdjf"
       ]
     },
     "car": {
       "path": "/var/www",
       "tags": [
-        "web",
-        "trains"
+        "Aa",
+        "bBBB",
+        "Cav"
       ]
     },
     "horse": {
@@ -27,8 +27,7 @@
     "movies": {
       "path": "/usr/bin",
       "tags": [
-        "future",
-        "rapid"
+        "future"
       ]
     }
   }

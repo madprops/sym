@@ -3,8 +3,9 @@ _sym()
     COMPREPLY=()
     local current_word="${COMP_WORDS[COMP_CWORD]}"
 
-    local args1="remove rename list add removeall tag removepath removetag tags 
-        changepath open backup restore remake runscript makescript path"
+    local args1="add rename remove removeall list tag tags addtags addtag 
+        replacetags removepath removetags removetag changepath open backup 
+        restore remake makescript printnames path"
     
     local args2=$(sym printnames)
     local args="${args1} ${args2}"

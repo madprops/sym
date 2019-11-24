@@ -26,6 +26,13 @@ proc check_item_2*(name:string): bool =
 
 proc check_tag(name:string, tag:string): bool =
   let it = db().items[name]
+  if not it.tags.contains(tag):
+    log(&"{to_color(name, blue)} doesn't have tag {to_color(tag, green)}")
+    return true
+  return false
+
+proc check_tag_2(name:string, tag:string): bool =
+  let it = db().items[name]
   if it.tags.contains(tag):
     log(&"{to_color(name, blue)} already has tag {to_color(tag, green)}")
     return true
@@ -39,22 +46,69 @@ proc get_item(name:string): Option[Item] =
 proc sort_items() =
   db().items.sort(system.cmp)
 
-proc add_tag(name:string, tag:string) =
+proc add_tag(name:string, tag:string, save=true) =
+  if check_item(name):
+    return
+  
+  if check_tag_2(name, tag):
+    return
+
+  let it = get_item(name).get
+  it.tags.add(tag)
+  make_tag_sym(tag, name, it.path)
+  log &"Tag {to_color(tag, green)} added to {to_color(name, blue)}."
+  if save:
+    save_db()
+
+proc add_tags*(name:string, tags:seq[string]) =
+  for tag in tags:
+    add_tag(name, tag, false)
+  save_db()
+
+proc remove_tag(name:string, tag:string, save=true) =
   if check_item(name):
     return
   
   if check_tag(name, tag):
     return
+  
+  let it = db().items[name]
 
-  let it = get_item(name).get
-  it.tags.add(tag)
-  save_db()
-  make_tag_sym(tag, name, it.path)
-  log &"Tag {to_color(tag, green)} added to {to_color(name, blue)}."
+  for i, tg in it.tags:
+    if tg == tag:
+      it.tags.delete(i)
+      remove_tag_sym(name, tag)
+      log(&"Tag {to_color(tag, green)} removed from {to_color(name, blue)}.")
+      break
+  
+  if save:
+    save_db()
 
-proc add_tags*(name:string, tags:seq[string]) =
+proc remove_tags*(name:string, tags:seq[string]) =
   for tag in tags:
-    add_tag(name, tag)
+    remove_tag(name, tag, false)
+
+  save_db()
+
+proc remove_all_tags(name:string, save=true) =
+  for tag in db().items[name].tags:
+    remove_tag_sym(name, tag)
+  
+  log(&"All tags removed from {to_color(name, blue)}.")
+  
+  db().items[name].tags = newSeq[string]()
+  if save: save_db()
+
+proc replace_tags*(name:string, tags:seq[string]) =
+  if check_item(name):
+    return
+
+  remove_all_tags(name, false)
+      
+  for tag in tags:
+    add_tag(name, tag, false)
+    
+  save_db()
 
 proc get_item_name_by_path(path:string): string =
   for name in db().items.keys:
@@ -216,16 +270,6 @@ proc rename_item*(name:string, name_2:string) =
   rename_sym(name, name_2)
   sort_items()
   save_db()
-
-proc remove_tag*(name:string, tag:string) =
-  for i in (0..db().items[name].tags.len - 1):
-    let tg = db().items[name].tags[i]
-    if tag == tg:
-        log(&"Tag {to_color(tg, green)} removed from {to_color(name, blue)}.")
-        db().items[name].tags.delete(i)
-        remove_tag_sym(name, tag)
-        save_db()
-        return
 
   log "Nothing was removed."
 
