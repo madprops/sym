@@ -16,7 +16,8 @@ const actions* = [
   "open",
   "backup", 
   "restore", 
-  "remake", 
+  "remake",
+  "runscript",
   "makescript",
   "printnames", 
   "path"

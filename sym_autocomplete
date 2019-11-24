@@ -5,7 +5,7 @@ _sym()
 
     local args1="add rename remove removeall list tag tags addtags addtag 
         replacetags removepath removetags removetag changepath open backup 
-        restore remake makescript printnames path"
+        restore remake runscript makescript printnames path"
     
     local args2=$(sym printnames)
     local args="${args1} ${args2}"
