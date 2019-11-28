@@ -271,8 +271,6 @@ proc rename_item*(name:string, name_2:string) =
   sort_items()
   save_db()
 
-  log "Nothing was removed."
-
 proc print_item*(name:string) =
   if check_item(name):
     return
