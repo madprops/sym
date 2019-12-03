@@ -2,35 +2,5 @@
   "data": {
     "version": 1
   },
-  "items": {
-    "bones": {
-      "path": "/bin",
-      "tags": [
-        "aoisdjf"
-      ]
-    },
-    "car": {
-      "path": "/var/www",
-      "tags": [
-        "Aa",
-        "bBBB",
-        "Cav",
-        "asdf",
-        "asdfasdf"
-      ]
-    },
-    "horse": {
-      "path": "/etc",
-      "tags": [
-        "edit",
-        "corn"
-      ]
-    },
-    "movies": {
-      "path": "/usr/bin",
-      "tags": [
-        "future"
-      ]
-    }
-  }
+  "items": {}
 }
