@@ -9,31 +9,31 @@
 <body>
 <pre>
 
-<span style="font-weight:bold;"></span><span style="color:green;font-weight:bold;">Symlink creator and manager</span>
+<span style="font-weight:bold;"></span><span style="font-weight:bold;color:green;">Symlink creator and manager</span>
 
-<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;">Examples:</span>
+<span style="font-weight:bold;"></span><span style="font-weight:bold;color:blue;">Examples:</span>
 
   Add an item:
    <span style="color:teal;">sym add movies ~/media/movies art videos</span>
-   This creates an item called movies.
-   Associated with the provided path.
-   And 2 tags were added to it.
-   This will create a symlink: ~/sym/movies
-   It will also create tag symlinks:
-   ~/sym/tags/art/movies
-   and ~/sym/tags/videos/movies
-   These 3 symlinks point to the same path.
-   You can do for instance 'ls ~/sym/movies'
-   And it will show the contents of ~/media/movies
+   <span style="font-style:italic;">This creates an item called movies.</span>
+   <span style="font-style:italic;">Associated with the provided path.</span>
+   <span style="font-style:italic;">And 2 tags were added to it.</span>
+   <span style="font-style:italic;">This will create a symlink: ~/sym/movies</span>
+   <span style="font-style:italic;">It will also create tag symlinks:</span>
+   <span style="font-style:italic;">~/sym/tags/art/movies</span>
+   <span style="font-style:italic;">and ~/sym/tags/videos/movies</span>
+   <span style="font-style:italic;">These 3 symlinks point to the same path.</span>
+   <span style="font-style:italic;">You can do for instance 'ls ~/sym/movies'</span>
+   <span style="font-style:italic;">And it will show the contents of ~/media/movies</span>
 
   Remove an item:
    <span style="color:teal;">sym remove movies</span>
-   or regex...
+   <span style="font-style:italic;">or regex...</span>
    <span style="color:teal;">sym remove re:\\w+</span>
 
   Remove an item by path:
    <span style="color:teal;">sym removepath /media/movies</span>
-   or regex...
+   <span style="font-style:italic;">or regex...</span>
    <span style="color:teal;">sym removepath re:\\w+</span>
 
   Rename an item:
@@ -79,10 +79,10 @@
    <span style="color:teal;">sym printnames</span>
 
   Scripts:
-   Scripts can be used for automation.
-   Scripts are 1 command per line.
+   <span style="font-style:italic;">Scripts can be used for automation.</span>
+   <span style="font-style:italic;">Scripts are 1 command per line.</span>
    <span style="color:teal;"></span>
-   Example script:
+   <span style="font-style:italic;">Example script:</span>
    <span style="color:teal;">movies ~/media/movies plot</span>
    <span style="color:teal;">tag movies woomy</span>
    <span style="color:teal;">backup</span>
@@ -93,7 +93,7 @@
   Make a script:
    <span style="color:teal;">sym makescript /path/to/save</span>
 
-<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;">Flags:</span>
+<span style="font-weight:bold;"></span><span style="font-weight:bold;color:blue;">Flags:</span>
 
   --dev
   <span style="color:teal;">Used for development</span>
