@@ -100,7 +100,7 @@ sym removepath re:\\w+""")
 
   parse_args()
   
-  conf = Config(tail:argtail(), dev:dev.used, force:force.used)
+  conf = Config(tail:get_argtail(), dev:dev.used, force:force.used)
 
 proc show_info*() =
   print_help()

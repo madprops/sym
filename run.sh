@@ -1,2 +1,2 @@
-cd bin
-nim c -o:sym-debug -r ../src/sym.nim --dev "${@:1}"
+#!/bin/bash
+nim compile --run -o:bin/sym-debug src/sym.nim $@
