@@ -1,10 +1,10 @@
+import std/os
+import std/nre
+import std/terminal
+import std/strformat
+import std/strutils
+import std/rdstdin
 import config
-import os
-import nre
-import terminal
-import strformat
-import strutils
-import rdstdin
 
 type AnsiKind* = enum
   green

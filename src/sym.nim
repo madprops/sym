@@ -1,10 +1,10 @@
+import std/strutils
 import utils
 import dbase
 import config
 import globals
 import itemprocs
 import symprocs
-import strutils
 
 proc do_action(tail:seq[string]) =
   var action = ""

@@ -1,9 +1,9 @@
+import std/os
+import std/json
+import std/tables
+import std/strutils
 import utils
-import os
 import config
-import json
-import tables
-import strutils
 
 type Data* = object
   version*: int

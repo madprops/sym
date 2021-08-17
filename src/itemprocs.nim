@@ -1,16 +1,16 @@
-import config
-import dbase
-import utils
+import std/strformat
+import std/strutils
+import std/tables
+import std/nre
+import std/os
+import std/options
+import std/algorithm
+import std/browsers
 import symprocs
 import globals
-import strformat
-import strutils
-import tables
-import nre
-import os
-import options
-import algorithm
-import browsers
+import dbase
+import utils
+import config
 
 proc check_item*(name:string): bool =
   if not db().items.hasKey(name):

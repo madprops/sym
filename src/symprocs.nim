@@ -1,8 +1,8 @@
+import std/os
+import std/tables
 import utils
-import os
 import config
 import dbase
-import tables
 
 proc symdir*(): string =
   if conf.dev:
